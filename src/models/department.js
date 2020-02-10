@@ -16,4 +16,4 @@ DepartmentSchema
 });
 
 //Export model
-export default mongoose.model('Department', DepartmentSchema);;
+export default mongoose.model('Department', DepartmentSchema);

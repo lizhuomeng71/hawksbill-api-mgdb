@@ -2,7 +2,7 @@ var mongoose = require('mongoose');
 
 var Schema = mongoose.Schema;
 
-var UserSchema = new Schema(
+var PersonSchema = new Schema(
   {
     first_name: {type: String, required: true},
     last_name: {type: String, required: true},
@@ -13,11 +13,11 @@ var UserSchema = new Schema(
 );
 
 // Virtual for author's URL
-UserSchema
+PersonSchema
 .virtual('url')
 .get(function () {
-  return '/user/' + this._id;
+  return '/person/' + this._id;
 });
 
 //Export model
-export default mongoose.model('User', UserSchema);;
+export default mongoose.model('Person', PersonSchema);

@@ -1,54 +1,54 @@
 import resource from 'resource-router-middleware';
-import User from '../models/user';
+import Auth from '../models/auth';
 
 export default ({ config, db }) => resource({
 
 	/** Property name to store preloaded entity on `request`. */
-	id : 'user',
+	id : 'auth',
 
 	/** For requests with an `id`, you can auto-load the entity.
 	 *  Errors terminate the request, success sets `req[id] = data`.
 	 */
 
 	load(req, id, callback) {
-		User.findOne({_id:id}).exec(callback);
+		Auth.findOne({_id:id}).exec(callback);
 	},
 
 
 	/** GET / - List all entities */
 	index({ query }, res) {
-		User.find(query, function (err, users) {
-        res.json(users);
+		Auth.find(query, function (err, auths) {
+        res.json(auths);
     })
 	},
 
 	/** POST / - Create a new entity */
 	create({ body }, res) {
 		console.log(body)
-		var user = new User(body);
-		user.save(function(err, user){
-			res.json(user);
+		var auth = new Auth(body);
+		auth.save(function(err, auth){
+			res.json(auth);
 		});
 	},
 
 	/** GET /:id - Return a given entity */
-	read({user}, res) {
-		res.json(user);
+	read({auth}, res) {
+		res.json(auth);
 	},
 
 	/** PUT /:id - Update a given entity */
-	update({ user, body }, res) {
-		console.log(user)
+	update({ auth, body }, res) {
+		console.log(auth)
 		console.log(body)
-		Object.assign(user, body);
-		console.log(user)
-		user.save()
+		Object.assign(auth, body);
+		console.log(auth)
+		auth.save()
 		res.sendStatus(204);
 	},
 
 	/** DELETE /:id - Delete a given entity */
-	delete({user}, res) {
-		user.remove((err, user) => {
+	delete({auth}, res) {
+		auth.remove((err, auth) => {
 			res.sendStatus(200);
 		});
 	}

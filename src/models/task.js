@@ -29,4 +29,4 @@ TaskSchema
 });
 
 //Export model
-export default mongoose.model('Task', TaskSchema);;
+export default mongoose.model('Task', TaskSchema);
