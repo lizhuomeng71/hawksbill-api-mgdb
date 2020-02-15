@@ -1,5 +1,6 @@
 import resource from 'resource-router-middleware';
 import Task from '../models/task';
+import Review from '../models/review';
 
 export default ({ config, db }) => resource({
 
@@ -61,6 +62,10 @@ export default ({ config, db }) => resource({
 }).get('/:id/sub_task', function(req,res) {
 	Task.find({parent_task : req.params.id}, function (err, tasks) {
 			res.json(tasks);
+	})
+}).get('/:id/reviews', function(req,res) {
+	Review.find({parent_task : req.params.id}, function (err, reviews) {
+			res.json(reviews);
 	})
 }).put('/:id/start', function(req,res) {
 	Task.findOne({_id:req.params.id}, function (err, task){

@@ -1,6 +1,7 @@
 import { version } from '../../package.json';
 import { Router } from 'express';
 import task from './task';
+import review from './review';
 import person from './person';
 import department from './department';
 import role from './role';
@@ -14,6 +15,7 @@ export default ({ config, db }) => {
 
 	// mount the task resource
 	api.use('/tasks', task({ config, db }));
+	api.use('/reviews', review({ config, db }));
 	api.use('/persons', person({ config, db }));
 	api.use('/departments', department({ config, db }));
 	api.use('/role', role({ config, db }));
