@@ -19,5 +19,13 @@ PersonSchema
   return '/person/' + this._id;
 });
 
+PersonSchema
+.virtual('name')
+.get(function () {
+  return this.last_name + this.first_name;
+});
+
+
+PersonSchema.set('toJSON', { getters: false, virtuals: true });
 //Export model
 export default mongoose.model('Person', PersonSchema);
