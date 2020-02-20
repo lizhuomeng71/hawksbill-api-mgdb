@@ -18,8 +18,6 @@ export default ({ config, db }) => resource({
 	/** GET / - List all entities */
 	index({ query }, res) {
 		Review.find(query).populate('assigned_user').exec(function (err, reviews) {
-			console.log(err)
-			console.log(reviews)
         res.json(reviews);
     })
 	},
@@ -56,7 +54,8 @@ export default ({ config, db }) => resource({
 	/** DELETE /:id - Delete a given entity */
 	delete({review}, res) {
 		review.remove((err, review) => {
-			res.sendStatus(200);
+			res.status(200);
+			res.json(review);
 		});
 	}
 }).get('/:id/sub_review', function(req,res) {
