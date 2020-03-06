@@ -21,8 +21,8 @@ export default ({ config, db }) => {
 	api.use('/persons', person({ config, db }));
 	api.use('/departments', department({ config, db }));
 	api.use('/role', role({ config, db }));
-	api.use('/equipment', equipment({ config, db }));
-	api.use('/material', material({ config, db }));
+	api.use('/equipments', equipment({ config, db }));
+	api.use('/materials', material({ config, db }));
 	api.use('/auth', auth({ config, db }));
 
 	// perhaps expose some API metadata at the root
