@@ -12,7 +12,7 @@ export default ({ config, db }) => resource({
 	 */
 
 	load(req, id, callback) {
-		Task.findOne({_id:id}).populate('assigned_task').exec(callback);
+		Task.findOne({_id:id}).populate('assigned_task').populate('equipments').exec(callback);
 	},
 
 
@@ -59,7 +59,7 @@ export default ({ config, db }) => resource({
 			res.sendStatus(200);
 		});
 	}
-}).get('/:id/sub_task', function(req,res) {
+}).get('/:id/sub_tasks', function(req,res) {
 	Task.find({parent_task : req.params.id}, function (err, tasks) {
 			res.json(tasks);
 	})
@@ -120,5 +120,41 @@ export default ({ config, db }) => resource({
 				task.save();
 				res.sendStatus(200);
 			}
+		})
+}).post('/:id/equipments/', function(req,res) {
+		console.log(req);
+		Task.findOne({_id:req.params.id}, function (err, task){
+			task.equipments.push(req.body.equipment);
+			task.save();
+			res.status(201);
+			res.json(task);
+		})
+}).delete('/:id/equipments/:equipment_id', function(req,res) {
+		Task.findOne({_id:req.params.id}, function (err, task){
+			const index = task.equipments.indexOf(req.params.equipment_id);
+			if (index > -1) {
+			  task.equipments.splice(index, 1);
+			}
+			task.save();
+			res.status(200);
+			res.json(req.params.equipment_id);
+		})
+}).post('/:id/materials/', function(req,res) {
+		console.log(req);
+		Task.findOne({_id:req.params.id}, function (err, task){
+			task.materials.push(req.body.material);
+			task.save();
+			res.status(201);
+			res.json(task);
+		})
+}).delete('/:id/materials/:material_id', function(req,res) {
+		Task.findOne({_id:req.params.id}, function (err, task){
+			const index = task.materials.indexOf(req.params.material_id);
+			if (index > -1) {
+			  task.materials.splice(index, 1);
+			}
+			task.save();
+			res.status(200);
+			res.json(req.params.material_id);
 		})
 })

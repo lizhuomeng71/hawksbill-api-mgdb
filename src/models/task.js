@@ -11,7 +11,7 @@ var TaskSchema = new Schema(
     proceeding_tasks: [{type: Schema.Types.ObjectId, ref: 'Task'}],
     assigned_user: {type: Schema.Types.ObjectId, ref: 'User'},
     materials:[{type: Schema.Types.ObjectId, ref: 'material'}],
-    equipments:[{type: Schema.Types.ObjectId, ref: 'equipment'}],
+    equipments:[{type: Schema.Types.ObjectId, ref: 'Equipment'}],
     users:[{type: Schema.Types.ObjectId, ref: 'User'}],
     created_date:{type: Date},
     update_date:{type: Date},
